@@ -27,27 +27,27 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     $ sudo apt update
     $ sudo apt install python3-dev python3-pip python3-venv
     ```
-2. Create a virtual environment (recommended) with pip:
+2. Create a virtual environment (recommended):
     ```
-    $ python3 -m venv --system-site-packages ./venv
+    $ python3 -m venv ./myenv
     ```
-    and activate the environment:
+    where `myenv` is the name of the environment, and activate the environment with:
     ```
-    $ source ./venv/bin/activate
+    $ source ./myenv/bin/activate
     ```
-    When the virtual environment is active, your shell prompt is prefixed with (venv).
+    When the virtual environment is active, your shell prompt is prefixed with (myenv).
 
-3. Install all required packages in the virtual environment by using the requirement file in the current repository:
+3. Install all required packages in the virtual environment by using pip and the requirement file in the current repository:
 
     ```
-    (venv)$ cd /path-to-cloned-GitHub-repository/RobustTrajectoryDesignbyRL/
-    (venv)$ pip install -r requirements.txt
+    (myenv)$ cd /path-to-cloned-GitHub-repository/RobustTrajectoryDesignbyRL/
+    (myenv)$ pip install -r requirements.txt
     ```
 
 Now, you can verify that all packages were successfully compiled and installed by running the following command:
 
 ```
-(venv)$ python main_lowthrust_validate.py
+(myenv)$ python main_lowthrust_validate.py
 ```
 If this command executes without any error, then your RobustTrajectoryDesignbyRL installation is ready for use.
 
@@ -65,7 +65,7 @@ Specifically:
 1. `main_lowthrust_input.py` is the main file, that must   be called to train the agent in a specific RL environment. All the environment and program settings must be included in an external text file with ad-hoc formatting, to be placed in folder `settings_files/` and given as input to the script.
 For example, to start training the agent with the settings specified in file `settings_files/settings.txt`, use the following command:
     ```
-    (venv)$ main_lowthrust_input.py --settings settings.txt
+    (myenv)$ main_lowthrust_input.py --settings settings.txt
     ```
     The information that must be contained in the settings file includes the RL algorithm used for training (`algorithm`) (among PPO, A2C, DDPG, SAC, TD3 and TRPO), the type of Deep Neural Network and its architecture (`policy`), the value of a number of algorithm-specific hyper-parameters, and some characteristic of the environment itself (such as the type of mission, thrust model, uncertainty source, standard deviations, and so on).
     The settings files that are already present in folder `settings_files/` are those used to obtain the results presented in paper https://arxiv.org/abs/2008.08501, and can be used as a guide to prepare new files from scratch. The order in which the different input are written in the file is not important.
@@ -75,7 +75,7 @@ For example, to start training the agent with the settings specified in file `se
     It is also possible to re-train with the same or different settings a pretrained RL model. In this case,
    the pretrained model file, e.g. `model.zip`, must be placed in `settings_files/` folder, and the program called with command:
     ```
-    (venv)$ main_lowthrust_input.py --settings settings.txt --input_model model
+    (myenv)$ main_lowthrust_input.py --settings settings.txt --input_model model
     ```
 
     At the end of the training, the RL model and all output files are saved in directory `sol_saved/sol_(i)/`, where number (i) depends on how many solutions are already contained in this folder.
@@ -84,13 +84,13 @@ For example, to start training the agent with the settings specified in file `se
 2. `main_lowthrust_load.py` is the file that allows generating the plots of the robust trajectory and of the control that corresponds to a given model (policy).
 Let us suppose that we want to realize the plots for the model saved in folder `sol_saved/sol_1/`. It is sufficient to run the command:
     ```
-    (venv)$ main_lowthrust_load.py --settings sol_saved/sol_1/settings.txt --n_sol 1
+    (myenv)$ main_lowthrust_load.py --settings sol_saved/sol_1/settings.txt --n_sol 1
     ```
     The graphs are saved in the same directory.
 3. `main_lowthrust_MC.py` is the file that allows performing a Monte Carlo simulation of a given policy in a stochastic environment.
 Let us suppose that we want to realize a MC by using the model saved in folder `sol_saved/sol_1/`. It is sufficient to run the command:
     ```
-    (venv)$ main_lowthrust_MC.py --settings sol_saved/sol_1/settings.txt --n_sol 1
+    (myenv)$ main_lowthrust_MC.py --settings sol_saved/sol_1/settings.txt --n_sol 1
     ```
     The graphs and output files are saved in the same directory.
 
