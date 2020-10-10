@@ -8,7 +8,7 @@ The Sims-Flanagan method is used to model the low-thrust trajectory, that is div
 
 The environment can be deterministic or stochastic (i.e., with state, observation and/or control uncertainties, as well as with a single or multiple consecutive missed thrust events).
 
-![My Image](./Images/traj_compare.png)
+![My Image](https://github.com/LorenzoFederici/RobustTrajectoryDesignbyRL/blob/main/images/traj_compare.png?raw=true)
 
 The program is based on [Stable Baselines](https://stable-baselines.readthedocs.io/en/master/), an open-source library containing a set of improved implementations of RL algorithms based on [OpenAI Baselines](https://github.com/openai/baselines).
 All necessary information can be found in the corresponding GitHub repository.
