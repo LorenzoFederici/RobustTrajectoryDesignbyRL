@@ -1,4 +1,5 @@
 .vscode/
+Images/
 __pycache__/
 custom_modules/__pycache__/
 gym-lowthrust/gym_lowthrust/__pycache__/
