@@ -36,6 +36,11 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     $ source ./myenv/bin/activate
     ```
     When the virtual environment is active, your shell prompt is prefixed with (myenv).
+    
+    Now upgrade pip:
+    ```
+    (myenv)$ pip install --upgrade pip
+    ```
 
 3. Install all required packages in the virtual environment by using pip and the requirement file in the current repository:
 
