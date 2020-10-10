@@ -1,0 +1,6 @@
+.vscode/
+__pycache__/
+custom_modules/__pycache__/
+gym-lowthrust/gym_lowthrust/__pycache__/
+gym-lowthrust/gym_lowthrust/envs/__pycache__/
+gym-lowthrust/gym_lowthrust.egg-info/
