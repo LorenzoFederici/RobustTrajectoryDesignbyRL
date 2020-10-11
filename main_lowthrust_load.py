@@ -29,7 +29,7 @@ warnings.filterwarnings("ignore", category=FutureWarning, module='tensorflow')
 warnings.filterwarnings("ignore", category=UserWarning, module='gym')
 
 # Input data
-plot_rewards = False
+plot_rewards = True
 nominal = False
 
 #Input settings file
@@ -104,8 +104,8 @@ dim_conv = np.array([tconv, rconv, rconv, rconv, \
     vconv, vconv, vconv, mconv]).astype(np.float64)
 
 #Spacecraft data (nondimensional)
-Tmax = 0.5e-3/fconv             # Maximum thrust
-Isp = 2000.                     # s, Specific impulse
+Tmax = float(Tmax)/fconv             # Maximum thrust
+Isp = float(Isp).                    # s, Specific impulse
 ueq = (pk.G0/1000.*Isp)/vconv   # Equivalent ejection velocity
 
 #Read Mission file
@@ -118,7 +118,7 @@ vy_nom = [] #nominal trajectory: vy
 vz_nom = [] #nominal trajectory: vz
 m_nom = [] #nominal trajectory: m
 mission_folder = "missions/"
-mission_file = mission_folder + "Earth_Mars.dat" #File with reference trajectory
+mission_file = mission_folder + mission_name + ".dat" #File with mission data
 with open(mission_file, "r") as f: # with open context
     f.readline()
     file_all = f.readlines()
@@ -222,7 +222,7 @@ f_out_EM.close()
 #Nominal solution
 if nominal == True:
     ax.plot(np.array(rx_nom), np.array(ry_nom), np.array(rz_nom), '--', color='red', \
-        linewidth = 2.5, label='$\\mbox{indirect}$')
+        linewidth = 2.5, label='$\\mbox{nominal}$')
 
 #Reset environment
 obs = env0.reset()

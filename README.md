@@ -69,20 +69,25 @@ The program is composed by 3 main Python scripts (`main_lowthrust_(...).py`), th
 
 Specifically:
 
-1. `main_lowthrust_input.py` is the main file, that must   be called to train the agent in a specific RL environment. All the environment and program settings must be included in an external text file with ad-hoc formatting, to be placed in folder `settings_files/` and given as input to the script.
+1. `main_lowthrust_input.py` is the main file, that must be called to train the agent in a specific RL environment. 
+
+    All the environment and program settings must be included in an external text file with ad-hoc formatting, to be placed in folder `settings_files/` and given as input to the script.
 For example, to start training the agent with the settings specified in file `settings_files/settings.txt`, use the following command:
     ```
-    (myenv)$ main_lowthrust_input.py --settings settings.txt
+    (myenv)$ python main_lowthrust_input.py --settings settings.txt
     ```
-    The information that must be contained in the settings file includes the RL algorithm used for training (`algorithm`) (among PPO, A2C, DDPG, SAC, TD3 and TRPO), the type of Deep Neural Network and its architecture (`policy`), the value of a number of algorithm-specific hyper-parameters, and some characteristic of the environment itself (such as the type of mission, thrust model, uncertainty source, standard deviations, and so on).
-    The settings files that are already present in folder `settings_files/` are those used to obtain the results presented in paper https://arxiv.org/abs/2008.08501, and can be used as a guide to prepare new files from scratch. The order in which the different input are written in the file is not important.
+    The information that must be included in the settings file, together with their formatting, is specified in file `settings_files/README.md`. 
+    The settings files that are already present in folder `settings_files/` are those used to obtain the results presented in paper https://arxiv.org/abs/2008.08501. You can look at them to better understand how to prepare new "legal" settings files from scratch. 
 
-    The specific low-thrust mission to study (i.e., the initial and final conditions of the spacecraft and the total mission time) must be specified in a file to be placed in folder `missions/`. For example, file `Earth_Mars.dat` contains the spacecraft state an any time, obtained with an indirect optimization method, for the Earth-Mars rendezvous mission used as case study in paper https://arxiv.org/abs/2008.08501.
-
+    The specific low-thrust mission to study must be specified in a .dat file to be placed in folder `missions/`.
+    The file should contain at least three rows, the first containing the columns headers, and the other two specifying the time (`t`), the spacecraft position (`x`, `y`, `z`) and velocity (`vx`, `vy`, `vz`) at the beginning and at the end of the mission, respectively. All quantities are assumed to be non-dimensional with respect to the reference values reported at lines 133-139 of `main_lowthrust_input.py`.
+    The name of the mission file must be specified in the settings file.
+    For example, file `Earth_Mars.dat` contains the optimal spacecraft state an any time for the Earth-Mars rendezvous mission used as case study in paper https://arxiv.org/abs/2008.08501.
+    
     It is also possible to re-train with the same or different settings a pretrained RL model. In this case,
-   the pretrained model file, e.g. `model.zip`, must be placed in `settings_files/` folder, and the program called with command:
+   the pretrained model file, once named `final_model.zip`, must be placed in `settings_files/` folder, and the program called with the command:
     ```
-    (myenv)$ main_lowthrust_input.py --settings settings.txt --input_model model
+    (myenv)$ python main_lowthrust_input.py --settings settings.txt --input_model model
     ```
 
     At the end of the training, the RL model and all output files are saved in directory `sol_saved/sol_(i)/`, where number (i) depends on how many solutions are already contained in this folder.
@@ -91,13 +96,13 @@ For example, to start training the agent with the settings specified in file `se
 2. `main_lowthrust_load.py` is the file that allows generating the plots of the robust trajectory and of the control that corresponds to a given model (policy).
 Let us suppose that we want to realize the plots for the model saved in folder `sol_saved/sol_1/`. It is sufficient to run the command:
     ```
-    (myenv)$ main_lowthrust_load.py --settings sol_saved/sol_1/settings.txt --n_sol 1
+    (myenv)$ python main_lowthrust_load.py --settings sol_saved/sol_1/settings.txt --n_sol 1
     ```
     The graphs are saved in the same directory.
 3. `main_lowthrust_MC.py` is the file that allows performing a Monte Carlo simulation of a given policy in a stochastic environment.
 Let us suppose that we want to realize a MC by using the model saved in folder `sol_saved/sol_1/`. It is sufficient to run the command:
     ```
-    (myenv)$ main_lowthrust_MC.py --settings sol_saved/sol_1/settings.txt --n_sol 1
+    (myenv)$ python main_lowthrust_MC.py --settings sol_saved/sol_1/settings.txt --n_sol 1
     ```
     The graphs and output files are saved in the same directory.
 

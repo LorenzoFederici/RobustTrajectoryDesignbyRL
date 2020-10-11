@@ -139,8 +139,8 @@ if __name__ == '__main__':
     fconv = mconv*aconv             # force, kN
 
     #Spacecraft data (nondimensional)
-    Tmax = 0.5e-3/fconv             # Maximum thrust
-    Isp = 2000.                     # s, Specific impulse
+    Tmax = float(Tmax)/fconv             # Maximum thrust
+    Isp = float(Isp)                     # s, Specific impulse
     ueq = (pk.G0/1000.*Isp)/vconv   # Equivalent ejection velocity
 
     #Read Mission file
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     vz_nom = [] #nominal trajectory: vz
     m_nom = []  #nominal trajectory: m
     mission_folder = "missions/"
-    mission_file = mission_folder + "Earth_Mars.dat" #File with reference trajectory
+    mission_file = mission_folder + mission_name + ".dat" #File with mission data
     with open(mission_file, "r") as f: # with open context
         f.readline()
         file_all = f.readlines()

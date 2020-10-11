@@ -1,6 +1,9 @@
 load_model                  0
 env_name                    lowthrust-v0
+mission_name                Earth_Mars
 impulsive                   1
+Tmax                        0.5e-3
+Isp                         2000
 action_coord                0
 obs_type                    0
 random_obs                  0

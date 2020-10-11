@@ -1,3 +1,5 @@
+## Low-Thrust Gym Environment
+
 Environment for a low-thrust interplanetary transfer with RL, 
 from fixed initial conditions, towards a given final target.
 The mission can be an interception or a rendezvous.
