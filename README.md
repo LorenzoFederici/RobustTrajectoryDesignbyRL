@@ -80,7 +80,7 @@ For example, to start training the agent with the settings specified in file `se
     The settings files that are already present in folder `settings_files/` are those used to obtain the results presented in paper https://arxiv.org/abs/2008.08501. You can look at them to better understand how to prepare new "legal" settings files from scratch. 
 
     The specific low-thrust mission to study must be specified in a .dat file to be placed in folder `missions/`.
-    The file should contain at least three rows, the first containing the columns headers, and the other two specifying the time (`t`), the spacecraft position (`x`, `y`, `z`) and velocity (`vx`, `vy`, `vz`) at the beginning and at the end of the mission, respectively. All quantities are assumed to be non-dimensional with respect to the reference values reported at lines 133-139 of `main_lowthrust_input.py`.
+    The file should contain at least three rows, the first containing the columns headers, and the other two specifying the time (`t`), the spacecraft position (`x`, `y`, `z`) velocity (`vx`, `vy`, `vz`) and mass (`m`) at the beginning and at the end of the mission, respectively (actually, the final mass can be a fictitious number). All quantities are assumed to be non-dimensional with respect to the reference values reported at lines 133-139 of `main_lowthrust_input.py`.
     The name of the mission file must be specified in the settings file.
     For example, file `Earth_Mars.dat` contains the optimal spacecraft state an any time for the Earth-Mars rendezvous mission used as case study in paper https://arxiv.org/abs/2008.08501.
     
