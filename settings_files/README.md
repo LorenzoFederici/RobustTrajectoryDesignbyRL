@@ -1,6 +1,6 @@
 ## How to prepare a correct settings file
 
-The settings file contain a number of parameters that the program need to know in order to understand which kind of mission to simulate, what RL algorithm to use, and so on.
+The settings file contains a number of parameters that the program needs to know in order to understand what kind of mission to simulate, what RL algorithm to use, and so on.
 The parameters must be organized in two columns, the first with the names of the parameters, and the second with their values. The order in which they are written in the file is not important.
 
 The list of parameters to include is the following:
