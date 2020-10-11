@@ -93,19 +93,27 @@ if __name__ == '__main__':
         policy = globals()[policy]
     num_cpu = int(num_cpu) #number of environments
     learning_rate_in = float(learning_rate_in) #initial learning rate
-    clip_range_in = float(clip_range_in) #initial clip range
+    if (algorithm == "PPO"):
+        clip_range_in = float(clip_range_in) #initial clip range
     if learning_rate == "lin":
+        learning_rate_type = "linear"
         learning_rate = linear_schedule(learning_rate_in)
     elif learning_rate == "const":
+        learning_rate_type = "constant"
         learning_rate = learning_rate_in
-    if clip_range == "lin":
-        clip_range = linear_schedule(clip_range_in)
-    elif clip_range == "const":
-        clip_range = clip_range_in
-    ent_coef = float(ent_coef)
+    if (algorithm == "PPO"):
+        if clip_range == "lin":
+            clip_range = linear_schedule(clip_range_in)
+        elif clip_range == "const":
+            clip_range = clip_range_in
+    if (algorithm == "PPO" or algorithm == "A2C" or \
+        algorithm == "SAC" or algorithm == "TRPO"):
+        ent_coef = float(ent_coef)
     gamma = float(gamma)
-    lam = float(lam)
-    noptepochs = int(noptepochs)
+    if (algorithm == "PPO" or algorithm == "TRPO"):
+        lam = float(lam)
+    if (algorithm == "PPO"):
+        noptepochs = int(noptepochs)
     nminibatches = int(nminibatches)
     niter = int(float(niter)) #number of iterations
     n_steps = int(NSTEPS*nminibatches) # batch size
@@ -253,22 +261,32 @@ if __name__ == '__main__':
                         verbose=1)
             model.tensorboard_log = tensorboard_log
     elif algorithm == "A2C":
-        model = A2C(policy=policy, env=env, n_steps=n_steps, verbose=1,
-                    tensorboard_log=tensorboard_log)
+        model = A2C(policy=policy, env=env, n_steps=n_steps, 
+                    gamma=gamma, ent_coef=ent_coef,
+                    learning_rate=learning_rate_in,
+                    lr_schedule=learning_rate_type,
+                    tensorboard_log=tensorboard_log, verbose=1,)
     elif algorithm == "DDPG":
-        model = DDPG(policy='MlpPolicy', env=env, verbose=1,
-                    tensorboard_log=tensorboard_log)
+        model = DDPG(policy='MlpPolicy', env=env,
+                    gamma=gamma, nb_train_steps=n_steps,
+                    actor_lr=learning_rate_in, critic_lr=learning_rate_in, 
+                    tensorboard_log=tensorboard_log, verbose=1)
     elif algorithm == "SAC":
-        model = SAC(policy='MlpPolicy', env=env, verbose=1,
+        model = SAC(policy='MlpPolicy', env=env,
+                    gamma=gamma, ent_coef=ent_coef, 
                     learning_rate=learning_rate,
-                    tensorboard_log=tensorboard_log)
+                    batch_size=NSTEPS,
+                    tensorboard_log=tensorboard_log, verbose=1)
     elif algorithm == "TD3":
-        model = TD3(policy='MlpPolicy', env=env, verbose=1,
+        model = TD3(policy='MlpPolicy', env=env, 
+                    gamma=gamma, batch_size=NSTEPS,
                     learning_rate=learning_rate,
-                    tensorboard_log=tensorboard_log)
+                    tensorboard_log=tensorboard_log, verbose=1)
     elif algorithm == "TRPO":
-        model = TRPO(policy=policy, env=env, verbose=1,
-                    tensorboard_log=tensorboard_log)
+        model = TRPO(policy=policy, env=env, 
+                    gamma=gamma, timesteps_per_batch=NSTEPS,
+                    lam=lam, entcoeff=ent_coef,
+                    tensorboard_log=tensorboard_log, verbose=1)
 
     # Learning
     if eval_environment == True:
