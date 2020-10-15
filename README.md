@@ -24,7 +24,7 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     $ sudo apt-get update
     $ sudo apt-get install cmake openmpi-bin libopenmpi-dev python3-dev zlib1g-dev
     ```
-2. After installing [Anaconda](https://www.anaconda.com/distribution/), you can create a virtual environment with a specifi Python version (3.6.10) by using conda:
+2. After installing [Anaconda](https://www.anaconda.com/distribution/), you can create a virtual environment with a specific Python version (3.6.10) by using conda:
     ```
     $ conda create --name myenv python=3.6.10
     ```
@@ -33,6 +33,10 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     $ conda activate myenv
     ```
     When the conda environment is active, your shell prompt is prefixed with (myenv).
+    The environment can be deactivated with:
+    ```
+    $ conda deactivate
+    ```
 
 3. Install all required packages in the virtual environment by using pip and the requirement file in the current repository:
 
