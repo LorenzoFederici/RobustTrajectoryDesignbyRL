@@ -8,7 +8,6 @@ gast==0.2.2
 google-pasta==0.2.0
 grpcio==1.29.0
 gym==0.17.2
--e git+https://github.com/LorenzoFederici/RobustTrajectoryDesignbyRL.git@6dd8b61af8390abd140fbd4a83c2267de9b43c3f#egg=gym_lowthrust&subdirectory=gym-lowthrust
 h5py==2.10.0
 importlib-metadata==1.6.1
 joblib==0.15.1
