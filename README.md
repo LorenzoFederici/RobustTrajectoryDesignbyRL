@@ -19,7 +19,7 @@ Moreover, the program uses [OpenMPI](https://www.open-mpi.org/) message passing 
 
 To correctly set up the code on Linux (Ubuntu), please follow the present instructions:
 
-1. First, you need Python3 and system packages CMake, OpenMPI and zlib. You can install all these packages with:
+1. First, you need Python3 and the system packages CMake, OpenMPI and zlib. You can install all these packages with:
     ```
     $ sudo apt-get update
     $ sudo apt-get install cmake openmpi-bin libopenmpi-dev python3-dev zlib1g-dev
@@ -44,7 +44,7 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     (myenv)$ cd /path-to-cloned-GitHub-repository/RobustTrajectoryDesignbyRL/
     (myenv)$ pip install -r requirements.txt
     ```
-4. Install the gym environment with pip:
+4. Install the gym RL environment with pip:
     ```
     (myenv)$ pip install -e gym-lowthrust
     ```
