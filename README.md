@@ -45,13 +45,6 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     (myenv)$ pip install -r requirements.txt
     ```
 
-Now, you can verify that all packages were successfully compiled and installed by running the following command:
-
-```
-(myenv)$ python main_lowthrust_validate.py
-```
-If this command executes without any error, then your RobustTrajectoryDesignbyRL installation is ready for use.
-
 Eventually, a LaTeX distribution should be installed on the computer in order to correctly visualize all graphs and plots. As an example, to install [Tex Live LaTeX](https://www.tug.org/texlive/) distribution on Ubuntu use the following command.
 ```
 $ sudo apt-get install texlive-full
