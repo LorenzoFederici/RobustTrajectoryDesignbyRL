@@ -44,6 +44,10 @@ To correctly set up the code on Linux (Ubuntu), please follow the present instru
     (myenv)$ cd /path-to-cloned-GitHub-repository/RobustTrajectoryDesignbyRL/
     (myenv)$ pip install -r requirements.txt
     ```
+4. Install the gym environment with pip:
+    ```
+    (myenv)$ pip install -e gym-lowthrust
+    ```
 
 Eventually, a LaTeX distribution should be installed on the computer in order to correctly visualize all graphs and plots. As an example, to install [Tex Live LaTeX](https://www.tug.org/texlive/) distribution on Ubuntu use the following command.
 ```
