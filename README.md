@@ -19,30 +19,20 @@ Moreover, the program uses [OpenMPI](https://www.open-mpi.org/) message passing 
 
 To correctly set up the code on Linux (Ubuntu), please follow the present instructions:
 
-1. Check if your Python environment is already configured, with:
+1. First, you need Python3 and system packages CMake, OpenMPI and zlib. You can install all these packages with:
     ```
-    $ python3 --version
-    $ pip3 --version
+    $ sudo apt-get update
+    $ sudo apt-get install cmake openmpi-bin libopenmpi-dev python3-dev zlib1g-dev
     ```
-    If these packages are already installed, skip to the next step. Otherwise, install Python 3, the pip package manager, and venv with:
+2. After installing [Anaconda](https://www.anaconda.com/distribution/), you can create a virtual environment with a specifi Python version (3.6.10) by using conda:
     ```
-    $ sudo apt update
-    $ sudo apt install python3-dev python3-pip python3-venv
-    ```
-2. Create a virtual environment (recommended):
-    ```
-    $ python3 -m venv ./myenv
+    $ conda create --name myenv python=3.6.10
     ```
     where `myenv` is the name of the environment, and activate the environment with:
     ```
-    $ source ./myenv/bin/activate
+    $ conda activate myenv
     ```
-    When the virtual environment is active, your shell prompt is prefixed with (myenv).
-    
-    Now upgrade pip:
-    ```
-    (myenv)$ pip install --upgrade pip
-    ```
+    When the conda environment is active, your shell prompt is prefixed with (myenv).
 
 3. Install all required packages in the virtual environment by using pip and the requirement file in the current repository:
 
