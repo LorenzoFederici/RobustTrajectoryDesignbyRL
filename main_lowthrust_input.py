@@ -202,43 +202,49 @@ if __name__ == '__main__':
         os.makedirs(monitor_folder + "env_" + str(rank) + "/", exist_ok=True)
 
     if num_cpu <= 1:
-         env = DummyVecEnv([make_env(env_name, rank, seed, monitor_folder + "env_" + str(rank) + "/", \
-            impulsive, action_coord, obs_type, random_obs, stochastic, mission_type, NSTEPS, \
-            niter_per_cpu, eps_schedule, lambda_con, \
-            Tmax, ueq, tf, 1., m0, \
-            r0, v0, \
-            rTf, vTf, \
-            sigma_r, sigma_v, \
-            sigma_u_rot, sigma_u_norm, \
-            MTE, pr_MTE) for rank in range(num_cpu)])
+        env = DummyVecEnv([make_env(env_id=env_name, rank=rank, seed=seed, \
+            filename=monitor_folder + "env_" + str(rank) + "/", \
+            impulsive=impulsive, action_coord=action_coord, obs_type=obs_type, \
+            random_obs=random_obs, stochastic=stochastic, mission_type=mission_type, \
+            NSTEPS=NSTEPS, NITER=niter_per_cpu, \
+            eps_schedule=eps_schedule, lambda_con=lambda_con, \
+            Tmax=Tmax, ueq=ueq, tf=tf, amu=1., m0=m0, \
+            r0=r0, v0=v0, \
+            rTf=rTf, vTf=vTf, \
+            sigma_r=sigma_r, sigma_v=sigma_v, \
+            sigma_u_rot=sigma_u_rot, sigma_u_norm=sigma_u_norm, \
+            MTE=MTE, pr_MTE=pr_MTE) for rank in range(num_cpu)])
     else:
-        env = SubprocVecEnv([make_env(env_name, rank, seed, monitor_folder + "env_" + str(rank) + "/", \
-            impulsive, action_coord, obs_type, random_obs, stochastic, mission_type, NSTEPS, \
-            niter_per_cpu, eps_schedule, lambda_con, \
-            Tmax, ueq, tf, 1., m0, \
-            r0, v0, \
-            rTf, vTf, \
-            sigma_r, sigma_v, \
-            sigma_u_rot, sigma_u_norm, \
-            MTE, pr_MTE) for rank in range(num_cpu)], start_method='spawn')
+        env = SubprocVecEnv([make_env(env_id=env_name, rank=rank, seed=seed, \
+            filename=monitor_folder + "env_" + str(rank) + "/", \
+            impulsive=impulsive, action_coord=action_coord, obs_type=obs_type, \
+            random_obs=random_obs, stochastic=stochastic, mission_type=mission_type, \
+            NSTEPS=NSTEPS, NITER=niter_per_cpu, \
+            eps_schedule=eps_schedule, lambda_con=lambda_con, \
+            Tmax=Tmax, ueq=ueq, tf=tf, amu=1., m0=m0, \
+            r0=r0, v0=v0, \
+            rTf=rTf, vTf=vTf, \
+            sigma_r=sigma_r, sigma_v=sigma_v, \
+            sigma_u_rot=sigma_u_rot, sigma_u_norm=sigma_u_norm, \
+            MTE=MTE, pr_MTE=pr_MTE) for rank in range(num_cpu)], start_method='spawn')
     
     #Create the evaluation environment
     if eval_environment == True:
         eps_schedule_eval = [eps_schedule[-1]]
-        eval_env = gym.make(env_name, impulsive = impulsive, action_coord = action_coord, \
-            obs_type = obs_type, random_obs = False, stochastic = False, \
-            mission_type = mission_type,
-            NSTEPS = NSTEPS, NITER = niter_per_cpu / nminibatches, \
-            eps_schedule = eps_schedule_eval, lambda_con = lambda_con, \
-            Tmax = Tmax, ueq = ueq, tf = tf, amu = 1., m0 = m0, \
-            r0 = r0, v0 = v0, \
-            rTf = rTf, vTf = vTf, \
-            sigma_r = sigma_r, sigma_v = sigma_v, \
-            sigma_u_rot = sigma_u_rot, sigma_u_norm = sigma_u_norm, \
-            MTE = MTE, pr_MTE = pr_MTE)
-        eval_callback = EvalCallback(eval_env, n_eval_episodes = 1, \
+        eval_env = DummyVecEnv([make_env(env_id=env_name, rank=0, seed=100, \
+            impulsive=impulsive, action_coord=action_coord, obs_type=obs_type, \
+            random_obs=random_obs, stochastic=stochastic, mission_type=mission_type, \
+            NSTEPS=NSTEPS, NITER=niter_per_cpu/nminibatches, \
+            eps_schedule=eps_schedule_eval, lambda_con=lambda_con, \
+            Tmax=Tmax, ueq=ueq, tf=tf, amu=1., m0=m0, \
+            r0=r0, v0=v0, \
+            rTf=rTf, vTf=vTf, \
+            sigma_r=sigma_r, sigma_v=sigma_v, \
+            sigma_u_rot=sigma_u_rot, sigma_u_norm=sigma_u_norm, \
+            MTE=MTE, pr_MTE=pr_MTE)])
+        eval_callback = EvalCallback(eval_env, n_eval_episodes = 200, \
                                 best_model_save_path=out_folder, \
-                                log_path=out_folder, eval_freq=n_steps, \
+                                log_path=out_folder, eval_freq=31250, \
                                 deterministic=True)
 
     # Create the model

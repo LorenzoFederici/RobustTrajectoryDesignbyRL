@@ -153,22 +153,21 @@ rT0, vT0 = propagate_lagrangian(r0 = rTf, v0 = vTf, tof = PT - tf) #km, km/s, in
 eps_schedule = [eps_schedule[-1]]
 
 # Environment creation
-env0 = gym.make(env_name, impulsive = impulsive, 
-    action_coord = action_coord, obs_type = obs_type, \
-    random_obs = False, stochastic = False, \
-    mission_type = mission_type, NSTEPS = NSTEPS, \
-    NITER = NSTEPS, eps_schedule = eps_schedule, \
-    lambda_con = lambda_con, \
-    Tmax = Tmax, ueq = ueq, tf = tf, amu = 1., m0 = m0, \
-    r0 = r0, v0 = v0, \
-    rTf = rTf, vTf = vTf, \
-    sigma_r = sigma_r, sigma_v = sigma_v, \
-    sigma_u_rot = sigma_u_rot, sigma_u_norm = sigma_u_norm, \
-    MTE = MTE, pr_MTE = pr_MTE)
-env = DummyVecEnv([lambda: env0])
+env0 = gym.make(id=env_name, \
+            impulsive=impulsive, action_coord=action_coord, obs_type=obs_type, \
+            random_obs=False, stochastic=False, mission_type=mission_type, \
+            NSTEPS=NSTEPS, NITER=NSTEPS, \
+            eps_schedule=eps_schedule, lambda_con=lambda_con, \
+            Tmax=Tmax, ueq=ueq, tf=tf, amu=1., m0=m0, \
+            r0=r0, v0=v0, \
+            rTf=rTf, vTf=vTf, \
+            sigma_r=sigma_r, sigma_v=sigma_v, \
+            sigma_u_rot=sigma_u_rot, sigma_u_norm=sigma_u_norm, \
+            MTE=MTE, pr_MTE=pr_MTE)
+env0.seed(0)
 
 # Load model
-model = PPO2.load(trained_model, env=env, policy=policy)
+model = PPO2.load(trained_model, policy=policy)
 
 # Print graph and results
 f_out = open(in_folder + "MCanalysis.txt", "w") # open file

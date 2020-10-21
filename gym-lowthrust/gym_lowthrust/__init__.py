@@ -1,7 +1,7 @@
 from gym.envs.registration import register
 
 register(
-    id = 'lowthrust-v0', #this variable is what we will pass into gym.make() to call our environment.
+    id = 'lowthrust-v0', #this variable is what we pass into gym.make() to call our environment.
     entry_point = 'gym_lowthrust.envs:LowThrustEnv',
     kwargs = {'impulsive' : True, 'action_coord' : False, 'obs_type' : 0, \
         'random_obs' : False, 'stochastic' : False, 'mission_type' : True, \

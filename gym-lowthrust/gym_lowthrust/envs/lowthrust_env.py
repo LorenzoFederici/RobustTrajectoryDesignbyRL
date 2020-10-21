@@ -18,7 +18,6 @@ import math
 import numpy as np
 from numpy import sqrt, log, exp, cos, sin, arccos, cross, dot, array
 from numpy.linalg import norm
-from numpy.random import seed as np_seed
 from numpy.random import uniform as np_uniform
 from numpy.random import normal as np_normal
 from numpy.random import randint as np_randint
@@ -258,10 +257,8 @@ class LowThrustEnv(gym.Env):
         self.action_space = spaces.Box(a_lb, a_ub, dtype=np.float64)
         
         """ Environment initialization """
-        self.seed()
         self.viewer = None
         self.state = None
-        self.reset()
     
     """ Set seed """
     def seed(self, seed=None):
@@ -269,7 +266,7 @@ class LowThrustEnv(gym.Env):
         :return seed: current seed of pseudorandom
             numbers generator
         """
-        np_seed(seed)
+        set_global_seeds(seed)
         
         return [seed]
 
