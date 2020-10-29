@@ -103,6 +103,7 @@ Let us suppose that we want to realize a MC by using the model saved in folder `
     (myenv)$ python main_lowthrust_MC.py --settings sol_saved/sol_1/settings.txt --n_sol 1
     ```
     The graphs and output files are saved in the same directory.
-
+    
+Both `main_lowthrust_load.py` and `main_lowthrust_MC.py` are by default called at the end of the training procedure triggered with script `main_lowthrust_input.py`.
 
 Enjoy the code!
