@@ -88,7 +88,7 @@ For example, to start training the agent with the settings specified in file `se
     (myenv)$ python main_lowthrust_input.py --settings settings.txt --input_model model
     ```
 
-    At the end of the training, the RL model and all output files are saved in directory `sol_saved/sol_(i)/`, where number (i) depends on how many solutions are already contained in this folder.
+    At the end of the training, the final RL model (`final_model.zip`), the best RL model found according to the evaluation callback (`best_model.zip`) and all output files are saved in directory `sol_saved/sol_(i)/`, where number (i) depends on how many solutions are already contained in this folder.
     The model corresponding to the policy trained in the unperturbed environment of paper https://arxiv.org/abs/2008.08501 can be found in directory `sol_saved/sol_1/`.
 
 2. `main_lowthrust_load.py` is the file that allows generating the plots of the robust trajectory and of the control that corresponds to a given model (policy).
