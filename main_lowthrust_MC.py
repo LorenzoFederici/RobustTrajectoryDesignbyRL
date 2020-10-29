@@ -80,7 +80,10 @@ policy = globals()[policy]
 #Input Model and Output folders
 in_folder = out_folder_root = "./sol_saved/sol_" + str(n_sol) + "/"
 monitor_folder = in_folder + algorithm + "/"
-logname = "final_model" #"best_model"
+if os.path.isfile(in_folder + "best_model.zip"):
+    logname = "best_model"
+else:
+    logname = "final_model"
 trained_model = in_folder + logname
 plot_folder = in_folder
 

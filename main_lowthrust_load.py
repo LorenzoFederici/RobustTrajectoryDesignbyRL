@@ -85,7 +85,7 @@ policy = globals()[policy]
 #Input Model and Output folders
 in_folder = out_folder_root = "./sol_saved/sol_" + str(n_sol) + "/"
 monitor_folder = in_folder + algorithm + "/"
-if (stochastic == False) and (random_obs == False):
+if os.path.isfile(in_folder + "best_model.zip"):
     logname = "best_model"
 else:
     logname = "final_model"
@@ -125,7 +125,6 @@ with open(mission_file, "r") as f: # with open context
     for line in file_all: #read line
         line = line.split()
         state_adim = np.array(line).astype(np.float64) #non-dimensional data
-        #state_dim = np.multiply(state_adim, dim_conv) #dimensional data
         
         #save data
         t_nom.append(state_adim[0])
@@ -199,6 +198,28 @@ if (plot_rewards):
     plot_results(log_folder = monitor_folder + "env_" + str(num_cpu-1) + "/", \
         out_folder = monitor_folder)
 
+#Unzip and save evaluations file
+evalutation_file_npz = in_folder + "evaluations.npz"
+if os.path.isfile(evalutation_file_npz):
+    npzfile = np.load(evalutation_file_npz)
+    f_out_eval = open(in_folder + "evaluations.txt", "w") # open file
+    f_out_eval.write('%20s\t%20s\t%20s\t%20s\n' \
+        % ("# training step", "mean reward", "std reward", "mean ep. length"))
+    for i in range(len(npzfile['timesteps'])):
+        f_out_eval.write('%20d\t%20.5f\t%20.5f\t%20d\n' \
+        % (npzfile['timesteps'][i], np.mean(npzfile['results'][i]), np.std(npzfile['results'][i]), \
+            np.mean(npzfile['ep_lengths'][i])))
+    f_out_eval.close()
+
+    matplotlib.rc('font', size=12)
+    matplotlib.rc('text', usetex=True)
+    fig0 = plt.figure()
+    plt.plot(npzfile['timesteps'], np.mean(npzfile['results'], axis=1),'o-')
+    plt.xlabel('Training step number')
+    plt.ylabel('Mean reward')
+    plt.grid()
+    plt.savefig(in_folder + "Evaluations.pdf", dpi=300)
+    
 #Create figures
 matplotlib.rc('font', size=18)
 matplotlib.rc('text', usetex=True)

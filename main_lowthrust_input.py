@@ -36,7 +36,7 @@ if __name__ == '__main__':
     postprocess = True
     MonteCarlo = True
     tensorboard = False
-    eval_environment = False
+    eval_environment = True
 
     #Input settings file
     parser = argparse.ArgumentParser()
@@ -242,9 +242,9 @@ if __name__ == '__main__':
             sigma_r=sigma_r, sigma_v=sigma_v, \
             sigma_u_rot=sigma_u_rot, sigma_u_norm=sigma_u_norm, \
             MTE=MTE, pr_MTE=pr_MTE)])
-        eval_callback = EvalCallback(eval_env, n_eval_episodes = 200, \
+        eval_callback = EvalCallback(eval_env, n_eval_episodes=100, \
                                 best_model_save_path=out_folder, \
-                                log_path=out_folder, eval_freq=31250, \
+                                log_path=out_folder, eval_freq=50000, \
                                 deterministic=True)
 
     # Create the model
@@ -252,7 +252,7 @@ if __name__ == '__main__':
         if load_model == False:
             model = PPO2(policy=policy, env=env, 
                         n_steps=n_steps, nminibatches=nminibatches,
-                        gamma=gamma, ent_coef=ent_coef,
+                        gamma=gamma, ent_coef=ent_coef, cliprange_vf=-1,
                         lam=lam, noptepochs=noptepochs,
                         learning_rate=learning_rate,
                         cliprange=clip_range,
@@ -260,7 +260,7 @@ if __name__ == '__main__':
         else:
             model = PPO2.load(input_model, policy=policy, env=env, 
                         n_steps=n_steps, nminibatches=nminibatches,
-                        gamma=gamma, ent_coef=ent_coef,
+                        gamma=gamma, ent_coef=ent_coef, cliprange_vf=-1,
                         lam=lam, noptepochs=noptepochs,
                         learning_rate=learning_rate,
                         cliprange=clip_range,
