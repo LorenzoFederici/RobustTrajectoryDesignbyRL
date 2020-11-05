@@ -14,7 +14,8 @@ from stable_baselines import results_plotter
 from stable_baselines.common.vec_env import DummyVecEnv, SubprocVecEnv
 from stable_baselines import PPO2, A2C, DDPG, SAC, TD3, TRPO
 from stable_baselines.common.callbacks import EvalCallback
-from custom_modules.custom_policies import CustomPolicy_3x64, CustomPolicy_4x128, CustomLSTMPolicy
+from custom_modules.custom_policies import CustomPolicy_3x64, CustomPolicy_4x128, CustomLSTMPolicy, \
+    CustomPolicy_2x81, CustomPolicy_3_var
 from custom_modules.learning_schedules import linear_schedule
 from custom_modules.env_fun import make_env
 from custom_modules.plot_results import plot_results

@@ -14,7 +14,8 @@ from stable_baselines.bench import Monitor
 from stable_baselines import results_plotter
 from stable_baselines.common.vec_env import DummyVecEnv
 from stable_baselines import PPO2, A2C, DDPG, SAC, TD3, TRPO
-from custom_modules.custom_policies import CustomPolicy_3x64, CustomPolicy_4x128, CustomLSTMPolicy
+from custom_modules.custom_policies import CustomPolicy_3x64, CustomPolicy_4x128, CustomLSTMPolicy, \
+    CustomPolicy_2x81, CustomPolicy_3_var
 from custom_modules.learning_schedules import linear_schedule
 from custom_modules.plot_results import plot_results, plot_kepler_new, plot_taylor_new
 from custom_modules.set_axes_equal_3d import set_axes_equal

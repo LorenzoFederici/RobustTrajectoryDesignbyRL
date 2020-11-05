@@ -34,8 +34,26 @@ class CustomLSTMPolicy(LstmPolicy):
                                             vf=[64, 64])],
                          layer_norm=True, feature_extraction="mlp", **_kwargs)
 
+# Custom MLP policy of two layers of size 81 each
+class CustomPolicy_2x81(FeedForwardPolicy):
+    def __init__(self, *args, **kwargs):
+        super(CustomPolicy_2x81, self).__init__(*args, **kwargs,
+                                           net_arch=[dict(pi=[81, 81],
+                                                          vf=[81, 81])],
+                                           feature_extraction="mlp")
+
+# Custom MLP policy of three layers of with variable size
+class CustomPolicy_3_var(FeedForwardPolicy):
+    def __init__(self, *args, **kwargs):
+        super(CustomPolicy_3_var, self).__init__(*args, **kwargs,
+                                           net_arch=[dict(pi=[80, 49, 30],
+                                                          vf=[80, 28, 10])],
+                                           feature_extraction="mlp")
+
 # Register the policy, it will check that the name is not already taken
 register_policy('CustomPolicy_3x64', CustomPolicy_3x64)
 register_policy('CustomPolicy_2x64_shared', CustomPolicy_2x64_shared)
 register_policy('CustomPolicy_4x128', CustomPolicy_4x128)
 register_policy('CustomLSTMPolicy', CustomLSTMPolicy)
+register_policy('CustomPolicy_2x81', CustomPolicy_2x81)
+register_policy('CustomPolicy_3_var', CustomPolicy_3_var)
