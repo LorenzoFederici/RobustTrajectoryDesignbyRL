@@ -94,13 +94,13 @@ For example, to start training the agent with the settings specified in file `se
 2. `main_lowthrust_load.py` is the file that allows generating the plots of the robust trajectory and of the control that corresponds to a given model (policy).
 Let us suppose that we want to realize the plots for the model saved in folder `sol_saved/sol_1/`. It is sufficient to run the command:
     ```
-    (myenv)$ python main_lowthrust_load.py --settings sol_saved/sol_1/settings.txt --n_sol 1
+    (myenv)$ python main_lowthrust_load.py --folder sol_saved/sol_1/
     ```
     The graphs are saved in the same directory.
 3. `main_lowthrust_MC.py` is the file that allows performing a Monte Carlo simulation of a given policy in a stochastic environment.
 Let us suppose that we want to realize a MC by using the model saved in folder `sol_saved/sol_1/`. It is sufficient to run the command:
     ```
-    (myenv)$ python main_lowthrust_MC.py --settings sol_saved/sol_1/settings.txt --n_sol 1
+    (myenv)$ python main_lowthrust_MC.py --folder sol_saved/sol_1/
     ```
     The graphs and output files are saved in the same directory.
     

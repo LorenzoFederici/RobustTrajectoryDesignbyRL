@@ -13,6 +13,7 @@ tf.get_logger().setLevel(logging.ERROR)
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
+from stable_baselines.common import set_global_seeds
 
 import math
 import numpy as np

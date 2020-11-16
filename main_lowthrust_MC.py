@@ -31,13 +31,10 @@ warnings.filterwarnings("ignore", category=UserWarning, module='gym')
 
 #Input settings file
 parser = argparse.ArgumentParser()
-parser.add_argument('--settings', type=str, default="sol_saved/sol_1/settings.txt", \
-    help='Input settings file')
-parser.add_argument('--n_sol', type=int, default=1, \
-    help='Number of solution to post-process')
+parser.add_argument('--folder', type=str, default="sol_saved/sol_1/", \
+    help='Input model folder')
 args = parser.parse_args()
-settings_file = args.settings
-n_sol = args.n_sol
+settings_file = args.folder + "settings.txt"
 
 #Read settings and assign environment and model parameters
 with open(settings_file, "r") as input_file: # with open context
@@ -79,7 +76,7 @@ pr_MTE = float(pr_MTE) #probability of having a MTE at k-th step
 policy = globals()[policy]
 
 #Input Model and Output folders
-in_folder = out_folder_root = "./sol_saved/sol_" + str(n_sol) + "/"
+in_folder = "./" + args.folder
 monitor_folder = in_folder + algorithm + "/"
 if os.path.isfile(in_folder + "best_model.zip"):
     logname = "best_model"

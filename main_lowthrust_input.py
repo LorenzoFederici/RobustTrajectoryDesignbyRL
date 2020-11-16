@@ -245,7 +245,7 @@ if __name__ == '__main__':
             MTE=MTE, pr_MTE=pr_MTE)])
         eval_callback = EvalCallback(eval_env, n_eval_episodes=100, \
                                 best_model_save_path=out_folder, \
-                                log_path=out_folder, eval_freq=50000, \
+                                log_path=out_folder, eval_freq=40000, \
                                 deterministic=True)
 
     # Create the model
@@ -296,21 +296,37 @@ if __name__ == '__main__':
                     tensorboard_log=tensorboard_log, verbose=1)
 
     # Learning
+    start_time = time.time()
     if eval_environment == True:
         model.learn(total_timesteps=niter, callback=eval_callback)
     else:
         model.learn(total_timesteps=niter)
+    end_time = time.time()
 
     # Save solution
     model.save(trained_model_log)
     print("End Training.")
 
-    # Post-process
+    # Save time
+    f_out_time = open(out_folder + "time.txt", "w") # open file
+    if eval_environment == True:
+        f_out_time.write("%20s\t%20s\n" \
+            % ("# elapsed time [s]", "best J"))
+        f_out_time.write("%20.7f\t%20.7f\n" \
+            % (end_time - start_time, eval_callback.best_mean_reward))
+    else:
+        f_out_time.write("%20s\n" \
+            % ("# elapsed time [s]"))
+        f_out_time.write("%20.7f\n" \
+            % (end_time - start_time))
+    f_out_time.close()
+
+    # Post-Process
     if postprocess == True:
         print("Post-processing")
-        os.system('python main_lowthrust_load.py --settings ' + out_folder + "settings.txt " + " --n_sol " + str(n_sol))
-        if MonteCarlo == True:
+        os.system('python main_lowthrust_load.py --folder ' + out_folder)
+        if MonteCarlo == True and (stochastic == True or random_obs == True):
             print("Monte Carlo")
-            os.system('python main_lowthrust_MC.py --settings ' + out_folder + "settings.txt " + " --n_sol " + str(n_sol))
+            os.system('python main_lowthrust_MC.py --folder ' + out_folder)
 
-    os.system("killall -9 python")
+    #os.system("killall -9 python")
