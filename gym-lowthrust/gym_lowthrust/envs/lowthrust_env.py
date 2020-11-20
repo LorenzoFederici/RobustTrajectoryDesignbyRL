@@ -548,8 +548,8 @@ class LowThrustEnv(gym.Env):
         # Perturbate the state
         if self.stochastic == True and self.tk < self.NSTEPS-1:
             drk, dvk = self.stateErrors()
-            rk1 += drk
-            vk1m += dvk
+            rk1 = rk1 + drk
+            vk1m = vk1m + dvk
 
         # Info (state at the beginning of the segment)
         self.sol['rx'] = self.rk[0]
@@ -580,8 +580,8 @@ class LowThrustEnv(gym.Env):
         vkm_obs = self.vkm
         if self.random_obs == True:
             drk, dvk = self.obsErrors()
-            rk_obs += drk
-            vkm_obs += dvk
+            rk_obs = rk_obs + drk
+            vkm_obs = vkm_obs + dvk
 
         # Observations
         if self.obs_type == 0:
