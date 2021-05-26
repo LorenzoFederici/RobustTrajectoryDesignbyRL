@@ -13,7 +13,7 @@ The list of parameters to include is the following:
 |     `impulsive`    |  bool  |        The spacecraft has impulsive or piece-wise constant thrust?       |                                      `1` (impulsive), `0` (constant)                                      |
 |       `Tmax`       |  float |                     Maximum thrust of S/C engine (kN)                    |                                              A positive float                                             |
 |        `Isp`       |  float |                    Specific impulse of S/C engine (s)                    |                                              A positive float                                             |
-|   `action_coord`   |  bool  |   What is the reference frame used to specify the direction of thrust?   |                                           `0` (J200), `1` (RTN)                                           |
+|   `action_coord`   |  bool  |   What is the reference frame used to specify the direction of thrust?   |                                           `0` (J2000), `1` (RTN)                                           |
 |     `obs_type`     |  bool  |             Parameters of the spacecraft used as observations            |                        `0` (r and v), `1` (COEs), `2` (MEEs), `3`(r, v and action)                        |
 |    `random_obs`    |  bool  |                      Are the observations uncertain?                     |                                            `0` (no), `1` (yes)                                            |
 |    `stochastic`    |  bool  |                      Is the environment stochastic?                      |                                            `0` (no), `1` (yes)                                            |
